@@ -19,7 +19,7 @@ export default function ProductDetail() {
 
   useEffect(() => {
     if (!id) return;
-    const base = `http://${window.location.hostname}:5000`;
+    const base = `http://${window.location.hostname}:5001`;
     fetch(`${base}/products/${id}`)
       .then(r => { if (!r.ok) throw new Error(); return r.json(); })
       .then(data => { setProduct(data); setStatus('ok'); })

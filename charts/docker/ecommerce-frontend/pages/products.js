@@ -26,7 +26,7 @@ export default function Products() {
   const fetchProducts = useCallback(() => {
     setStatus('loading');
     const base = typeof window !== 'undefined'
-      ? `http://${window.location.hostname}:5000`
+      ? `http://${window.location.hostname}:5001`
       : 'http://backend:5000';
 
     const params = new URLSearchParams();
