@@ -22,7 +22,7 @@ services:
     container_name: novashop-backend
     restart: unless-stopped
     ports:
-      - "5000:5000"
+      - "5001:5000"
     environment:
       DB_HOST:     mysql
       DB_USER:     ${DB_USER:-root}
@@ -37,7 +37,7 @@ services:
     container_name: novashop-frontend
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3001:3000"
     depends_on:
       - backend
 
