@@ -40,7 +40,7 @@ export default function ProductCard({ product }) {
           </div>
           {isOnSale && <span className="badge-sale">-{discount}%</span>}
           {product.is_new && <span className="badge-new">New</span>}
-          {inCart > 0 && <span className="badge-cart">{inCart} in cart</span>}
+          {inCart > 0 && Number.isFinite(inCart) && <span className="badge-cart">{inCart} in cart</span>}
         </div>
         <div className="card-body">
           <span className="category-tag">{product.category}</span>
