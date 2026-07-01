@@ -1,0 +1,17 @@
+frontend:
+  image: gana24/ecommerce-frontend:latest
+  replicas: 1
+
+backend:
+  image: gana24/ecommerce-backend:latest
+  replicas: 1
+
+mysql:
+  rootPassword: root
+  database: ecommerce
+  user: root
+  password: root
+
+phpmyadmin:
+  image: phpmyadmin/phpmyadmin:latest
+  replicas: 1

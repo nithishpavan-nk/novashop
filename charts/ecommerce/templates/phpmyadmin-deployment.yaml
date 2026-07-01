@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin
+spec:
+  replicas: {{ .Values.phpmyadmin.replicas }}
+  selector:
+    matchLabels:
+      app: phpmyadmin
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin
+    spec:
+      containers:
+        - name: phpmyadmin
+          image: {{ .Values.phpmyadmin.image }}
+          ports:
+            - containerPort: 80
+          env:
+            - name: PMA_HOST
+              value: "mysql"
+            - name: PMA_USER
+              value: "root"
+            - name: PMA_PASSWORD
+              value: "root"

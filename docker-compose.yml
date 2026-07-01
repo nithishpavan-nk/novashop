@@ -1,0 +1,45 @@
+services:
+
+  mysql:
+    image: mysql:8
+    container_name: novashop-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
+      MYSQL_DATABASE:      ${DB_NAME:-ecommerce}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${DB_PASSWORD:-root}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./charts/docker/ecommerce-backend
+    container_name: novashop-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST:     mysql
+      DB_USER:     ${DB_USER:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-root}
+      DB_NAME:     ${DB_NAME:-ecommerce}
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  frontend:
+    build: ./charts/docker/ecommerce-frontend
+    container_name: novashop-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  mysql-data:
